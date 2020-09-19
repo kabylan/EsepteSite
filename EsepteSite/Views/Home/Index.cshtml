@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Машинное обучение Бишкек, Искусственный интеллект Бишкек, Машинное обучение Кыргызстан, Искусственный интеллект Кыргызстан";
+}
+
+<br />
+<br />
+<h4 class="text-center text-success">
+    Наши услуги
+</h4>
+<br />
+<hr />
+<br />
+
+<ul style="list-style-type:none">
+    <li data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor('a')" id="a">Разработка</h3></li>
+    <li data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor('b')" id="b">Внедрение</h3></li>
+    <li data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor('c')" id="c">Поддержка</h3></li>
+    <li data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor('d')" id="d">Развитие</h3></li>
+</ul>
+<br />
+
+
+<div class="m-3 p-2 shadow-sm border rounded accordion" style="height: 100px;" id="accordionExample">
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <p class="text-center p-2">
+            Разработка с нуля до продакшн алгоритмом машинного обучения для вашего проекта
+        </p>
+    </div>
+
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <p class="text-center p-2">
+            Внедрение машинного обучения в ваш проект
+        </p>
+    </div>
+
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+        <p class="text-center p-2">
+            Поддержка в неполадках в части машинного обучения
+        </p>
+    </div>
+
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+        <p class="text-center p-2">
+            Мы можем развивать ваши существующие проекты с улучшинными
+            алгоритмами машинного обучения.
+        </p>
+    </div>
+</div>
+
+
+<br />
+<hr />
+<br />
+
+
+<br />
+<br />
+<h4 class="text-center text-primary">
+    Наши веб-сервисы и продукты
+</h4>
+<br />
+<hr />
+<br />
+
+<ul style="list-style-type:none">
+    <li data-toggle="collapse" data-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor2('a2')" id="a2">Esepte Komnata</h3></li>
+    <li data-toggle="collapse" data-target="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor2('b2')" id="b2">Esepte Ero</h3></li>
+    <li data-toggle="collapse" data-target="#collapseTvelve" aria-expanded="true" aria-controls="collapseTvelve"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor2('c2')" id="c2">Esepte Gender</h3></li>
+    <li data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor2('d2')" id="d2">Esepte Color</h3></li>
+</ul>
+<br />
+
+
+<div class="m-3 p-2 shadow-sm border rounded accordion" style="height: 100px;" id="accordionExample2">
+
+    <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample2">
+        <p class="text-center p-2">
+            Разпознавание типа помещений: кухня, зал, спальняя, душ, гараж и так далее.
+            <br />
+            <a href="" class="btn btn-link">Демо</a>
+        </p>
+    </div>
+
+    <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordionExample2">
+        <p class="text-center p-2">
+            Распознавание фотографий с эротическим содержанием
+            <br />
+            <a href="" class="btn btn-link">Демо (18+)</a>
+        </p>
+    </div>
+
+    <div id="collapseTvelve" class="collapse" aria-labelledby="headingTvelve" data-parent="#accordionExample2">
+        <p class="text-center p-2">
+            Распознование пола человека на фотографии
+            <br />
+            <a href="" class="btn btn-link">Демо</a>
+        </p>
+    </div>
+
+    <div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#accordionExample2">
+        <p class="text-center p-2">
+            Распознование основного цвета на фотографии
+
+            <br />
+            <a href="" class="btn btn-link">Демо</a>
+        </p>
+    </div>
+</div>
+
+<br />
+<hr />
+<br />
+
+
+<p>
+    <a class="material-icons btn m-2 text-muted text-decoration-none" href="email:eseptehelp@gmail.com">email</a>
+    <a class="material-icons btn m-2 text-muted text-decoration-none" href="tel:0552758177">call</a>
+</p>
+
+<script>
+    function changeColor(id) {
+        document.getElementById('a').className = "text-muted";
+        document.getElementById('b').className = "text-muted";
+        document.getElementById('c').className = "text-muted";
+        document.getElementById('d').className = "text-muted";
+        document.getElementById(id).className = "text-success";
+    }
+
+    function changeColor2(id) {
+        document.getElementById('a2').className = "text-muted";
+        document.getElementById('b2').className = "text-muted";
+        document.getElementById('c2').className = "text-muted";
+        document.getElementById('d2').className = "text-muted";
+        document.getElementById(id).className = "text-primary";
+    }
+</script>
+
+
+
+
+
+
