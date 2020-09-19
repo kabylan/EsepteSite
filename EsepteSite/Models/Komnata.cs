@@ -7,7 +7,8 @@ namespace EsepteSite.Models
 {
     public class Komnata
     {
-        public string ImageName { get; set; }
+        public string Id { get; set; }
+        public string ImageLink { get; set; }
         public string ImagePath { get; set; }
         public string KomnataType { get; set; }
     }

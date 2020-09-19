@@ -18,7 +18,8 @@ namespace EsepteSite.Controllers
     {
         IWebHostEnvironment _appEnvironment;
         private static readonly HttpClient client = new HttpClient();
-
+        private static readonly string appUrl = "https://localhost:44332";
+        private static readonly string esepteKomnataUrl = "https://localhost:44370";
 
         public DemosController(IWebHostEnvironment appEnvironment)
         {
@@ -38,14 +39,15 @@ namespace EsepteSite.Controllers
             // сохранить файлы
             List<Komnata> komnatas = await SaveFiles(uploads);
 
+            // получить распознования
             komnatas = await RequestToEsepteKomnata(komnatas);
 
+            // вернуть результаты
             ViewBag.Recognized = "";
-
-            foreach (Komnata komnata in komnatas)
-            {
-                ViewBag.Recognized += komnata.KomnataType + " ";
-            }
+            
+            // удалить файлы
+            //await DeleteFiles(komnatas);
+            ViewBag.Komnatas = komnatas;
 
             return View("EsepteKomnata");
         }
@@ -55,14 +57,17 @@ namespace EsepteSite.Controllers
         {
             foreach (Komnata komnata in komnatas)
             {
-                var response = await client.GetAsync("http://localhost:54858/komnata?imageName=" + komnata.ImageName);
+                // запрос
+                var response = await client.GetAsync(esepteKomnataUrl + "/komnata?imageLink=" + komnata.ImageLink);
 
+                // ответ
                 var responseString = await response.Content.ReadAsStringAsync();
 
+                // конвертирование
                 KomnataJSON komnataJSON = JsonSerializer.Deserialize<KomnataJSON>(responseString);
                 komnata.KomnataType = komnataJSON.komnataType;
 
-                Debug.Print(komnata.KomnataType);
+                Debug.Print("EsepteSite: " + komnata.KomnataType);
             }
 
             return komnatas;
@@ -73,35 +78,34 @@ namespace EsepteSite.Controllers
         {
             List<Komnata> komnatas = new List<Komnata>();
 
+            int id = 1;
             foreach (var uploadedFile in uploads)
             {
+                string imageName = "Image_" + DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss_ffff") + Path.GetExtension(uploadedFile.FileName);
+
                 // путь к папке Files
-                string path = "C:\\Users\\esept\\Downloads\\EsepteKomnataUploads\\" + uploadedFile.FileName;
+                string path = _appEnvironment.WebRootPath  + "\\Uploads\\" + imageName;
 
                 // сохраняем файл в папку Files в каталоге wwwroot
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                komnatas.Add(new Komnata { ImageName = uploadedFile.FileName, ImagePath = path });
+                komnatas.Add(new Komnata { Id = "collapse_" + id, ImageLink = appUrl + "//Uploads//" + imageName, ImagePath = path });
+                id++;
+                Debug.Print("EsepteSite: " + komnatas.Last().ImageLink);
             }
 
             return komnatas;
         }
 
-
-
-
-
-
-
-
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        private async Task DeleteFiles(List<Komnata> komnatas)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            foreach (var komnata in komnatas)
+            {
+                System.IO.File.Delete(komnata.ImagePath);
+            }
         }
+
     }
 }

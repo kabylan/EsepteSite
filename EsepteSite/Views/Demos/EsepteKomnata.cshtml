@@ -1,25 +1,71 @@
 ﻿
 @{
     ViewData["Title"] = "Машинное обучение Бишкек, Искусственный интеллект Бишкек, Машинное обучение Кыргызстан, Искусственный интеллект Кыргызстан";
+
 }
 
-<p>
-    EsepteKomnata
-</p>
 <br />
+<h1>
+    EsepteKomnata
+</h1>
+<p class="text-success">
+    Разпознавание видов помещений: <br /> кухня, зал, спальняя, душ, гараж и так далее.
+</p>
 <hr />
 <br />
-<p>
-    Результат: <span class="text-success">@ViewBag.Recognized</span> 
-</p>
+<h2>Результат</h2>
+
+
+<div class="d-flex justify-content-center">
+    @if (ViewBag.Komnatas != null)
+    {
+        <div class="btn-group" role="group" aria-label="Basic example">
+            @foreach (Komnata komnata in ViewBag.Komnatas)
+            {
+
+                if (String.IsNullOrEmpty(komnata.KomnataType))
+                {
+                    <span data-toggle="collapse" data-target="#@komnata.Id" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-sm btn-outline-success"> - </button>
+                    </span>
+                }
+                else
+                {
+                    <span data-toggle="collapse" data-target="#@komnata.Id" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-sm btn-outline-success">@komnata.KomnataType</button>
+                    </span>
+                }
+            }
+        </div>
+    }
+</div>
+<div class="m-3 p-2 shadow-sm border rounded accordion" id="accordionExample">
+    @if (ViewBag.Komnatas != null)
+    {
+        @foreach (Komnata komnata in ViewBag.Komnatas)
+        {
+            <div id="@komnata.Id" class="collapse" aria-labelledby="@komnata.Id" data-parent="#accordionExample">
+                <p class="d-flex justify-content-center">
+                    <img src="@komnata.ImageLink" class="img-fluid rounded" style="width: 220px; height: 160px;object-fit:cover;" />
+                </p>
+            </div>
+        }
+    }
+</div>
+
+
+
 <br />
 <hr />
 <br />
 
 
 <form asp-action="RecognizeKomnata" asp-controller="Demos" method="post" enctype="multipart/form-data">
-    <input type="file" name="uploads" /><br>
-    <input type="file" name="uploads" /><br>
-    <input type="file" name="uploads" /><br>
+    <input type="file" name="uploads" multiple accept="image/*" /><br>
     <input type="submit" value="Загрузить" />
 </form>
+
+<br />
+<p class="text-muted">
+    Вы можете выбрать сразу несколько фотографий
+</p>
