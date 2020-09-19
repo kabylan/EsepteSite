@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Машинное обучение Бишкек, Искусственный интеллект Бишкек, Машинное обучение Кыргызстан, Искусственный интеллект Кыргызстан";
+}
+
+<p>
+    EsepteKomnata
+</p>
+<br />
+<hr />
+<br />
+<p>
+    Результат: <span class="text-success">@ViewBag.Recognized</span> 
+</p>
+<br />
+<hr />
+<br />
+
+
+<form asp-action="RecognizeKomnata" asp-controller="Demos" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploads" /><br>
+    <input type="file" name="uploads" /><br>
+    <input type="file" name="uploads" /><br>
+    <input type="submit" value="Загрузить" />
+</form>

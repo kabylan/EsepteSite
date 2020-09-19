@@ -28,10 +28,6 @@ namespace EsepteSite.Controllers
             return View();
         }
 
-        public IActionResult Demos()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
