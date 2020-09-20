@@ -84,14 +84,14 @@ namespace EsepteSite.Controllers
                 string imageName = "Image_" + DateTime.Now.ToString("MM_dd_yyyy_HH_mm_ss_ffff") + Path.GetExtension(uploadedFile.FileName);
 
                 // путь к папке Files
-                string path = _appEnvironment.WebRootPath  + "\\Uploads\\" + imageName;
+                string path = _appEnvironment.WebRootPath  + "/Uploads/" + imageName;
 
                 // сохраняем файл в папку Files в каталоге wwwroot
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                komnatas.Add(new Komnata { Id = "collapse_" + id, ImageLink = appUrl + "//Uploads//" + imageName, ImagePath = path });
+                komnatas.Add(new Komnata { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
                 id++;
                 Debug.Print("EsepteSite: " + komnatas.Last().ImageLink);
             }
