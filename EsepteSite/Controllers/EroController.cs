@@ -14,19 +14,19 @@ using System.Text.Json;
 
 namespace EsepteSite.Controllers
 {
-    public class DemosController : Controller
+    public class EroController : Controller
     {
         IWebHostEnvironment _appEnvironment;
         private static readonly HttpClient client = new HttpClient();
         private static readonly string appUrl = "https://localhost:44332";
-        private static readonly string esepteKomnataUrl = "https://localhost:44370";
+        private static readonly string apiUrl = "https://localhost:44370";
 
-        public DemosController(IWebHostEnvironment appEnvironment)
+        public EroController(IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
         }
 
-        public IActionResult EsepteKomnata()
+        public IActionResult Index()
         {
             ViewBag.Recognized = "";
 
@@ -34,49 +34,49 @@ namespace EsepteSite.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RecognizeKomnata(IFormFileCollection uploads)
+        public async Task<IActionResult> Recognize(IFormFileCollection uploads)
         {
             // сохранить файлы
-            List<Komnata> komnatas = await SaveFiles(uploads);
+            List<Ero> eros = await SaveFiles(uploads);
 
             // получить распознования
-            komnatas = await RequestToEsepteKomnata(komnatas);
+            eros = await RequestToEsepteAPI(eros);
 
             // вернуть результаты
             ViewBag.Recognized = "";
             
             // удалить файлы
             //await DeleteFiles(komnatas);
-            ViewBag.Komnatas = komnatas;
+            ViewBag.Results = eros;
 
-            return View("EsepteKomnata");
+            return View("Index");
         }
 
 
-        private async Task<List<Komnata>> RequestToEsepteKomnata(List<Komnata> komnatas)
+        private async Task<List<Ero>> RequestToEsepteAPI(List<Ero> eros)
         {
-            foreach (Komnata komnata in komnatas)
+            foreach (Ero ero in eros)
             {
                 // запрос
-                var response = await client.GetAsync(esepteKomnataUrl + "/komnata?imageLink=" + komnata.ImageLink);
+                var response = await client.GetAsync(apiUrl + "/ero?imageLink=" + ero.ImageLink);
 
                 // ответ
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 // конвертирование
-                KomnataJSON komnataJSON = JsonSerializer.Deserialize<KomnataJSON>(responseString);
-                komnata.KomnataType = komnataJSON.komnataType;
+                EroJSON jsonResult = JsonSerializer.Deserialize<EroJSON>(responseString);
+                ero.TypeRU = jsonResult.typeRU;
 
-                Debug.Print("EsepteSite: " + komnata.KomnataType);
+                Debug.Print("EsepteSite: " + ero.TypeRU);
             }
 
-            return komnatas;
+            return eros;
         }
 
         // Сохранение файлов
-        private async Task<List<Komnata>> SaveFiles(IFormFileCollection uploads)
+        private async Task<List<Ero>> SaveFiles(IFormFileCollection uploads)
         {
-            List<Komnata> komnatas = new List<Komnata>();
+            List<Ero> eros = new List<Ero>();
 
             int id = 1;
             foreach (var uploadedFile in uploads)
@@ -91,19 +91,19 @@ namespace EsepteSite.Controllers
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                komnatas.Add(new Komnata { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
+                eros.Add(new Ero { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
                 id++;
-                Debug.Print("EsepteSite: " + komnatas.Last().ImageLink);
+                Debug.Print("EsepteSite: " + eros.Last().ImageLink);
             }
 
-            return komnatas;
+            return eros;
         }
 
-        private async Task DeleteFiles(List<Komnata> komnatas)
+        private async Task DeleteFiles(List<Ero> eros)
         {
-            foreach (var komnata in komnatas)
+            foreach (var ero in eros)
             {
-                System.IO.File.Delete(komnata.ImagePath);
+                System.IO.File.Delete(ero.ImagePath);
             }
         }
 

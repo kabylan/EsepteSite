@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Машинное обучение Бишкек, Искусственный интеллект Бишкек, Машинное обучение Кыргызстан, Искусственный интеллект Кыргызстан";
+
+}
+
+<br />
+<h1 class="text-center" style="font-weight:bolder">
+    Esepte Ero
+</h1>
+<h4 class="text-center" style="font-weight:normal">Распознование фотографиий с содержанием непристойных материалов</h4>
+<br />
+
+<p class="text-center p-2">
+    <span class="btn btn-sm border bg-white">18+</span>
+    <span class="btn btn-sm border bg-white">нейтрально</span>
+</p>
+
+<hr />
+<br />
+@*<h2>Результат</h2>*@
+
+
+<div class="d-flex justify-content-center">
+    @if (ViewBag.Results != null)
+    {
+        <div class="btn-group" role="group" aria-label="Basic example">
+            @foreach (Ero item in ViewBag.Results)
+            {
+
+                if (String.IsNullOrEmpty(item.TypeRU))
+                {
+                    <span data-toggle="collapse" data-target="#@item.Id" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-sm btn-outline-success"> - </button>
+                    </span>
+                }
+                else
+                {
+                    <span data-toggle="collapse" data-target="#@item.Id" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-sm btn-outline-success">@item.TypeRU</button>
+                    </span>
+                }
+            }
+        </div>
+    }
+</div>
+<div class="m-3 p-2 shadow-sm border rounded accordion" id="accordionExample">
+    @if (ViewBag.Results != null)
+    {
+        @foreach (Ero item in ViewBag.Results)
+        {
+            <div id="@item.Id" class="collapse" aria-labelledby="@item.Id" data-parent="#accordionExample">
+                <p class="d-flex justify-content-center">
+                    <img src="@item.ImageLink" class="img-fluid rounded" style="width: 220px; height: 160px;object-fit:cover;" />
+                </p>
+            </div>
+        }
+    }
+</div>
+
+
+
+<br />
+<hr />
+<br />
+
+
+<form asp-action="Recognize" asp-controller="Ero" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploads" multiple accept="image/*" /><br>
+    <input type="submit" value="Загрузить" />
+</form>
+
+<br />
+<p class="text-muted">
+    Вы можете выбрать сразу несколько фотографий
+</p>

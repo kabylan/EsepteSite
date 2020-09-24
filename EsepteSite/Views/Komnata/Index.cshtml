@@ -29,23 +29,24 @@
 @*<h2>Результат</h2>*@
 
 
+
 <div class="d-flex justify-content-center">
-    @if (ViewBag.Komnatas != null)
+    @if (ViewBag.Results != null)
     {
         <div class="btn-group" role="group" aria-label="Basic example">
-            @foreach (Komnata komnata in ViewBag.Komnatas)
+            @foreach (Komnata item in ViewBag.Results)
             {
 
-                if (String.IsNullOrEmpty(komnata.KomnataType))
+                if (String.IsNullOrEmpty(item.TypeRU))
                 {
-                    <span data-toggle="collapse" data-target="#@komnata.Id" aria-expanded="true" aria-controls="collapseOne">
+                    <span data-toggle="collapse" data-target="#@item.Id" aria-expanded="true" aria-controls="collapseOne">
                         <button class="btn btn-sm btn-outline-success"> - </button>
                     </span>
                 }
                 else
                 {
-                    <span data-toggle="collapse" data-target="#@komnata.Id" aria-expanded="true" aria-controls="collapseOne">
-                        <button class="btn btn-sm btn-outline-success">@komnata.KomnataType</button>
+                    <span data-toggle="collapse" data-target="#@item.Id" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="btn btn-sm btn-outline-success">@item.TypeRU</button>
                     </span>
                 }
             }
@@ -53,13 +54,13 @@
     }
 </div>
 <div class="m-3 p-2 shadow-sm border rounded accordion" id="accordionExample">
-    @if (ViewBag.Komnatas != null)
+    @if (ViewBag.Results != null)
     {
-        @foreach (Komnata komnata in ViewBag.Komnatas)
+        @foreach (Komnata item in ViewBag.Results)
         {
-            <div id="@komnata.Id" class="collapse" aria-labelledby="@komnata.Id" data-parent="#accordionExample">
+            <div id="@item.Id" class="collapse" aria-labelledby="@item.Id" data-parent="#accordionExample">
                 <p class="d-flex justify-content-center">
-                    <img src="@komnata.ImageLink" class="img-fluid rounded" style="width: 220px; height: 160px;object-fit:cover;" />
+                    <img src="@item.ImageLink" class="img-fluid rounded" style="width: 220px; height: 160px;object-fit:cover;" />
                 </p>
             </div>
         }
@@ -73,7 +74,7 @@
 <br />
 
 
-<form asp-action="RecognizeKomnata" asp-controller="Demos" method="post" enctype="multipart/form-data">
+<form asp-action="Recognize" asp-controller="Komnata" method="post" enctype="multipart/form-data">
     <input type="file" name="uploads" multiple accept="image/*" /><br>
     <input type="submit" value="Загрузить" />
 </form>
