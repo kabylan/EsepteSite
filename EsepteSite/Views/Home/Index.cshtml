@@ -41,7 +41,7 @@
 <br />
 
 
-<div class="m-3 p-2 shadow-sm border rounded accordion" style="height: 120px;" id="accordionExample">
+<div class="m-3 p-2 shadow-sm border rounded accordion" style="height: 220px;" id="accordionExample">
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <p class="text-center p-2">
@@ -102,42 +102,42 @@
     <li data-toggle="collapse" data-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('a2')" id="a2">Esepte Komnata</h5></li>
     <li data-toggle="collapse" data-target="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('b2')" id="b2">Esepte Ero</h5></li>
     <li data-toggle="collapse" data-target="#collapseTvelve" aria-expanded="true" aria-controls="collapseTvelve"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('c2')" id="c2">Esepte Gender</h5></li>
-    @*<li data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen"><h3 class="text-muted" style="cursor:pointer" onclick="changeColor2('d2')" id="d2">Esepte Color</h3></li>*@
+    <li data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('d2')" id="d2">Esepte Notice Property</h5></li>
 </ul>
 <br />
 
 
-<div class="m-3 p-2 shadow-sm border rounded accordion" style="height: 130px;" id="accordionExample2">
+<div class="m-3 p-2 shadow-sm border rounded accordion" style="height: 230px;" id="accordionExample2">
 
     <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordionExample2">
         <p class="text-center p-2">
-            <span style="font-size: 18px; font-weight:normal">Как выглядит кухня? А ванная?</span><br /><br />
+            <span style="font-size: 18px; font-weight:normal">"Как выглядит кухня?"</span><br /><br />
             <a asp-action="Index" asp-controller="Komnata" class="btn btn-sm btn-primary">Демо</a>
         </p>
     </div>
 
     <div id="collapseEleven" class="collapse" aria-labelledby="headingEleven" data-parent="#accordionExample2">
         <p class="text-center p-2">
-            <span style="font-size: 18px; font-weight:normal">Не хочешь создать второй Pornhub? Используй данный веб-сервис</span><br /><br />
+            <span style="font-size: 18px; font-weight:normal">"Не хочешь создать второй Pornhub?"</span><br /><br />
             <a asp-action="Index" asp-controller="Ero" class="btn btn-sm btn-primary">Демо (18+)</a>
         </p>
     </div>
 
     <div id="collapseTvelve" class="collapse" aria-labelledby="headingTvelve" data-parent="#accordionExample2">
         <p class="text-center p-2">
-            <span style="font-size: 18px; font-weight:normal">Их только две</span><br /><br />
+            <span style="font-size: 18px; font-weight:normal">"Их только две"</span><br /><br />
             <a asp-action="Index" asp-controller="Gender" class="btn btn-sm btn-primary ">Демо</a>
         </p>
     </div>
 
-    @*<div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#accordionExample2">
-            <p class="text-center p-2">
-                Распознование основного цвета на фотографии
-
-                <br />
-                <a href="" class="btn btn-link">Демо</a>
-            </p>
-        </div>*@
+    <div id="collapseFourteen" class="collapse" aria-labelledby="headingFourteen" data-parent="#accordionExample2">
+        <p class="text-center p-2">
+            <span style="font-size: 18px; font-weight:normal">
+                "Этичное объявление недвижимости"
+            </span><br /><br />
+            <a asp-action="Index" asp-controller="NoticeProperty" class="btn btn-sm btn-primary ">Демо</a>
+        </p>
+    </div>
 </div>
 
 <br />
@@ -163,7 +163,7 @@
         document.getElementById('a2').className = "text-muted";
         document.getElementById('b2').className = "text-muted";
         document.getElementById('c2').className = "text-muted";
-        //document.getElementById('d2').className = "text-muted";
+        document.getElementById('d2').className = "text-muted";
         document.getElementById(id).className = "text-primary";
     }
 </script>

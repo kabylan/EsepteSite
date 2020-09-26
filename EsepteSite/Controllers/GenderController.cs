@@ -19,7 +19,7 @@ namespace EsepteSite.Controllers
         IWebHostEnvironment _appEnvironment;
         private static readonly HttpClient client = new HttpClient();
         private static readonly string appUrl = "https://localhost:44332";
-        private static readonly string apiUrl = "https://localhost:44370";
+        private static readonly string apiUrl = "https://localhost:44370/gender";
 
         public GenderController(IWebHostEnvironment appEnvironment)
         {
@@ -37,7 +37,7 @@ namespace EsepteSite.Controllers
         public async Task<IActionResult> Recognize(IFormFileCollection uploads)
         {
             // сохранить файлы
-            List<Gender> genders = await SaveFiles(uploads);
+            List<Model> genders = await SaveFiles(uploads);
 
             // получить распознования
             genders = await RequestToEsepteAPI(genders);
@@ -54,18 +54,18 @@ namespace EsepteSite.Controllers
         }
 
 
-        private async Task<List<Gender>> RequestToEsepteAPI(List<Gender> genders)
+        private async Task<List<Model>> RequestToEsepteAPI(List<Model> genders)
         {
-            foreach (Gender gender in genders)
+            foreach (Model gender in genders)
             {
                 // запрос
-                var response = await client.GetAsync(apiUrl + "/gender?imageLink=" + gender.ImageLink);
+                var response = await client.GetAsync(apiUrl + "?imageLink=" + gender.ImageLink);
 
                 // ответ
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 // конвертирование
-                GenderJSON jsonResult = JsonSerializer.Deserialize<GenderJSON>(responseString);
+                ModelJSON jsonResult = JsonSerializer.Deserialize<ModelJSON>(responseString);
                 gender.TypeRU = jsonResult.typeRU;
 
                 Debug.Print("EsepteSite: " + gender.TypeRU);
@@ -75,9 +75,9 @@ namespace EsepteSite.Controllers
         }
 
         // Сохранение файлов
-        private async Task<List<Gender>> SaveFiles(IFormFileCollection uploads)
+        private async Task<List<Model>> SaveFiles(IFormFileCollection uploads)
         {
-            List<Gender> genders = new List<Gender>();
+            List<Model> genders = new List<Model>();
 
             int id = 1;
             foreach (var uploadedFile in uploads)
@@ -92,7 +92,7 @@ namespace EsepteSite.Controllers
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                genders.Add(new Gender { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
+                genders.Add(new Model { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
                 id++;
                 Debug.Print("EsepteSite: " + genders.Last().ImageLink);
             }
@@ -100,7 +100,7 @@ namespace EsepteSite.Controllers
             return genders;
         }
 
-        private async Task DeleteFiles(List<Gender> genders)
+        private async Task DeleteFiles(List<Model> genders)
         {
             foreach (var gender in genders)
             {

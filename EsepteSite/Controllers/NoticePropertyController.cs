@@ -14,14 +14,14 @@ using System.Text.Json;
 
 namespace EsepteSite.Controllers
 {
-    public class KomnataController : Controller
+    public class NoticePropertyController : Controller
     {
         IWebHostEnvironment _appEnvironment;
         private static readonly HttpClient client = new HttpClient();
         private static readonly string appUrl = "https://localhost:44332";
-        private static readonly string apiUrl = "https://localhost:44370/komnata";
+        private static readonly string apiUrl = "https://localhost:44370/noticeproperty";
 
-        public KomnataController(IWebHostEnvironment appEnvironment)
+        public NoticePropertyController(IWebHostEnvironment appEnvironment)
         {
             _appEnvironment = appEnvironment;
         }
@@ -37,46 +37,46 @@ namespace EsepteSite.Controllers
         public async Task<IActionResult> Recognize(IFormFileCollection uploads)
         {
             // сохранить файлы
-            List<Model> komnatas = await SaveFiles(uploads);
+            List<Model> eros = await SaveFiles(uploads);
 
             // получить распознования
-            komnatas = await RequestToEsepteAPI(komnatas);
+            eros = await RequestToEsepteAPI(eros);
 
             // вернуть результаты
             ViewBag.Recognized = "";
             
             // удалить файлы
             //await DeleteFiles(komnatas);
-            ViewBag.Results = komnatas;
+            ViewBag.Results = eros;
 
             return View("Index");
         }
 
 
-        private async Task<List<Model>> RequestToEsepteAPI(List<Model> komnatas)
+        private async Task<List<Model>> RequestToEsepteAPI(List<Model> eros)
         {
-            foreach (Model komnata in komnatas)
+            foreach (Model ero in eros)
             {
                 // запрос
-                var response = await client.GetAsync(apiUrl + "?imageLink=" + komnata.ImageLink);
+                var response = await client.GetAsync(apiUrl + "?imageLink=" + ero.ImageLink);
 
                 // ответ
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 // конвертирование
                 ModelJSON jsonResult = JsonSerializer.Deserialize<ModelJSON>(responseString);
-                komnata.TypeRU = jsonResult.typeRU;
+                ero.TypeRU = jsonResult.typeRU;
 
-                Debug.Print("EsepteSite: " + komnata.TypeRU);
+                Debug.Print("EsepteSite: " + ero.TypeRU);
             }
 
-            return komnatas;
+            return eros;
         }
 
         // Сохранение файлов
         private async Task<List<Model>> SaveFiles(IFormFileCollection uploads)
         {
-            List<Model> komnatas = new List<Model>();
+            List<Model> eros = new List<Model>();
 
             int id = 1;
             foreach (var uploadedFile in uploads)
@@ -91,19 +91,19 @@ namespace EsepteSite.Controllers
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                komnatas.Add(new Model { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
+                eros.Add(new Model { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
                 id++;
-                Debug.Print("EsepteSite: " + komnatas.Last().ImageLink);
+                Debug.Print("EsepteSite: " + eros.Last().ImageLink);
             }
 
-            return komnatas;
+            return eros;
         }
 
-        private async Task DeleteFiles(List<Model> komnatas)
+        private async Task DeleteFiles(List<Model> eros)
         {
-            foreach (var komnata in komnatas)
+            foreach (var ero in eros)
             {
-                System.IO.File.Delete(komnata.ImagePath);
+                System.IO.File.Delete(ero.ImagePath);
             }
         }
 

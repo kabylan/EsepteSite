@@ -6,14 +6,22 @@
 
 <br />
 <h1 class="text-center" style="font-weight:bolder">
-    Esepte Gender
+    Esepte Notice Property
 </h1>
-<h4 class="text-center" style="font-weight:normal">Разпознавание пола человека на фотографии</h4>
+<h4 class="text-center" style="font-weight:normal">
+    Классификация настоящих фотографий недвижимости от спама
+</h4>
 <br />
 
 <p class="text-center p-2">
-    <span class="btn btn-sm border bg-white">М</span>
-    <span class="btn btn-sm border bg-white">Ж</span>
+    <span class="btn btn-sm border bg-white">2d планировака</span>
+    <span class="btn btn-sm border bg-white">3d планировака</span>
+    <span class="btn btn-sm border bg-white">логотип</span>
+    <span class="btn btn-sm border bg-white">документ</span>
+    <span class="btn btn-sm border bg-white">карта</span>
+    <span class="btn btn-sm border bg-white">спам</span>
+    <span class="btn btn-sm border bg-white">спам АН</span>
+    <span class="btn btn-sm border bg-white">реальное</span>
 </p>
 
 <hr />
@@ -65,7 +73,7 @@
 <br />
 
 
-<form asp-action="Recognize" asp-controller="Gender" method="post" enctype="multipart/form-data">
+<form asp-action="Recognize" asp-controller="NoticeProperty" method="post" enctype="multipart/form-data">
     <input type="file" name="uploads" multiple accept="image/*" /><br>
     <input type="submit" value="Загрузить" />
 </form>

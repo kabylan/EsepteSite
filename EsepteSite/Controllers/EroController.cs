@@ -19,7 +19,7 @@ namespace EsepteSite.Controllers
         IWebHostEnvironment _appEnvironment;
         private static readonly HttpClient client = new HttpClient();
         private static readonly string appUrl = "https://localhost:44332";
-        private static readonly string apiUrl = "https://localhost:44370";
+        private static readonly string apiUrl = "https://localhost:44370/ero";
 
         public EroController(IWebHostEnvironment appEnvironment)
         {
@@ -37,7 +37,7 @@ namespace EsepteSite.Controllers
         public async Task<IActionResult> Recognize(IFormFileCollection uploads)
         {
             // сохранить файлы
-            List<Ero> eros = await SaveFiles(uploads);
+            List<Model> eros = await SaveFiles(uploads);
 
             // получить распознования
             eros = await RequestToEsepteAPI(eros);
@@ -53,18 +53,18 @@ namespace EsepteSite.Controllers
         }
 
 
-        private async Task<List<Ero>> RequestToEsepteAPI(List<Ero> eros)
+        private async Task<List<Model>> RequestToEsepteAPI(List<Model> eros)
         {
-            foreach (Ero ero in eros)
+            foreach (Model ero in eros)
             {
                 // запрос
-                var response = await client.GetAsync(apiUrl + "/ero?imageLink=" + ero.ImageLink);
+                var response = await client.GetAsync(apiUrl + "?imageLink=" + ero.ImageLink);
 
                 // ответ
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 // конвертирование
-                EroJSON jsonResult = JsonSerializer.Deserialize<EroJSON>(responseString);
+                ModelJSON jsonResult = JsonSerializer.Deserialize<ModelJSON>(responseString);
                 ero.TypeRU = jsonResult.typeRU;
 
                 Debug.Print("EsepteSite: " + ero.TypeRU);
@@ -74,9 +74,9 @@ namespace EsepteSite.Controllers
         }
 
         // Сохранение файлов
-        private async Task<List<Ero>> SaveFiles(IFormFileCollection uploads)
+        private async Task<List<Model>> SaveFiles(IFormFileCollection uploads)
         {
-            List<Ero> eros = new List<Ero>();
+            List<Model> eros = new List<Model>();
 
             int id = 1;
             foreach (var uploadedFile in uploads)
@@ -91,7 +91,7 @@ namespace EsepteSite.Controllers
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                eros.Add(new Ero { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
+                eros.Add(new Model { Id = "collapse_" + id, ImageLink = appUrl + "/Uploads/" + imageName, ImagePath = path });
                 id++;
                 Debug.Print("EsepteSite: " + eros.Last().ImageLink);
             }
@@ -99,7 +99,7 @@ namespace EsepteSite.Controllers
             return eros;
         }
 
-        private async Task DeleteFiles(List<Ero> eros)
+        private async Task DeleteFiles(List<Model> eros)
         {
             foreach (var ero in eros)
             {

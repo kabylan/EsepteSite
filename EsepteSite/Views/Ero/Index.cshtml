@@ -25,7 +25,7 @@
     @if (ViewBag.Results != null)
     {
         <div class="btn-group" role="group" aria-label="Basic example">
-            @foreach (Ero item in ViewBag.Results)
+            @foreach (Model item in ViewBag.Results)
             {
 
                 if (String.IsNullOrEmpty(item.TypeRU))
@@ -47,11 +47,11 @@
 <div class="m-3 p-2 shadow-sm border rounded accordion" id="accordionExample">
     @if (ViewBag.Results != null)
     {
-        @foreach (Ero item in ViewBag.Results)
+        @foreach (Model item in ViewBag.Results)
         {
             <div id="@item.Id" class="collapse" aria-labelledby="@item.Id" data-parent="#accordionExample">
                 <p class="d-flex justify-content-center">
-                    <img src="@item.ImageLink" class="img-fluid rounded" style="width: 220px; height: 160px;object-fit:cover;" />
+                    <img src="@item.ImageLink" class="img-fluid rounded" style="width: 320px; height: 360px;object-fit:cover;" />
                 </p>
             </div>
         }

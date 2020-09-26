@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EsepteSite.Models
 {
-    public class Komnata
+    public class Model
     {
         public string Id { get; set; }
         public string ImageLink { get; set; }
@@ -13,7 +13,7 @@ namespace EsepteSite.Models
         public string TypeRU { get; set; }
     }
 
-    public class KomnataJSON
+    public class ModelJSON
     {
         public string typeRU { get; set; }
     }
