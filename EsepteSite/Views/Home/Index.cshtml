@@ -4,10 +4,6 @@
 <br />
 <br />
 
-
-
-
-
 <br />
 <br />
 <h4 class="text-center text-muted" id="aboutUs">
@@ -17,9 +13,9 @@
 <hr />
 <br />
 
-<p style="font-size: 18px" class="text-center">
+<h1 class="text-center bg-dark p-5 text-white">
     Мы найдем лучшее применение машинного обучения для вашего бизнеса
-</p>
+</h1>
 
 <br />
 <hr />
@@ -99,10 +95,11 @@
 <br />
 
 <ul style="list-style-type:none">
-    <li data-toggle="collapse" data-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('a2')" id="a2">Esepte Komnata</h5></li>
+    @*<li data-toggle="collapse" data-target="#collapseTen" aria-expanded="true" aria-controls="collapseTen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('a2')" id="a2">Esepte Komnata</h5></li>*@
+    <li data-toggle="collapse" data-target="#collapseFifteen" aria-expanded="true" aria-controls="collapseFifteen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('e2')" id="e2">Esepte Marks</h5></li>
+    <li data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('d2')" id="d2">Esepte Notice Property</h5></li>
     <li data-toggle="collapse" data-target="#collapseEleven" aria-expanded="true" aria-controls="collapseEleven"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('b2')" id="b2">Esepte Ero</h5></li>
     <li data-toggle="collapse" data-target="#collapseTvelve" aria-expanded="true" aria-controls="collapseTvelve"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('c2')" id="c2">Esepte Gender</h5></li>
-    <li data-toggle="collapse" data-target="#collapseFourteen" aria-expanded="true" aria-controls="collapseFourteen"><h5 class="text-muted" style="cursor:pointer" onclick="changeColor2('d2')" id="d2">Esepte Notice Property</h5></li>
 </ul>
 <br />
 
@@ -138,6 +135,15 @@
             <a asp-action="Index" asp-controller="NoticeProperty" class="btn btn-sm btn-primary ">Демо</a>
         </p>
     </div>
+
+    <div id="collapseFifteen" class="collapse" aria-labelledby="headingFifteen" data-parent="#accordionExample2">
+        <p class="text-center p-2">
+            <span style="font-size: 18px; font-weight:normal">
+                "Это BMW?"
+            </span><br /><br />
+            <a asp-action="Index" asp-controller="Marks" class="btn btn-sm btn-primary ">Демо</a>
+        </p>
+    </div>
 </div>
 
 <br />
@@ -160,10 +166,11 @@
     }
 
     function changeColor2(id) {
-        document.getElementById('a2').className = "text-muted";
+        //document.getElementById('a2').className = "text-muted";
         document.getElementById('b2').className = "text-muted";
         document.getElementById('c2').className = "text-muted";
         document.getElementById('d2').className = "text-muted";
+        document.getElementById('e2').className = "text-muted";
         document.getElementById(id).className = "text-primary";
     }
 </script>
