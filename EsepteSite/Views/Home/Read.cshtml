@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Машинное обучение Бишкек, Искусственный интеллект Бишкек, Машинное обучение Кыргызстан, Искусственный интеллект Кыргызстан";
+}
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Что</th>
+            <th scope="col">Чего</th>
+            <th scope="col">Контакты</th>
+            <th scope="col">Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Messages message in ViewBag.Messages)
+        {
+            <tr>
+                <td>@message.ClientBusiness</td>
+                <td>@message.ClientWants</td>
+                <td>@message.ClientContacts</td>
+                <td>@message.Date</td>
+            </tr>
+        }
+    </tbody>
+</table>
