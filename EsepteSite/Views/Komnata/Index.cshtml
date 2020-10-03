@@ -73,13 +73,11 @@
 <hr />
 <br />
 
-
 <form asp-action="Recognize" asp-controller="Komnata" method="post" enctype="multipart/form-data">
-    <input type="file" name="uploads" multiple accept="image/*" /><br>
-    <input type="submit" value="Загрузить" />
+    <div class="text-center">
+        <input type="file" name="uploads" multiple accept="image/*" />
+        <input type="submit" class="btn-outline-primary" value="Готово" />
+    </div>
 </form>
 
 <br />
-<p class="text-muted">
-    Вы можете выбрать сразу несколько фотографий
-</p>
