@@ -19,7 +19,7 @@ namespace EsepteSite.Controllers
         IWebHostEnvironment _appEnvironment;
         private static readonly HttpClient client = new HttpClient();
         //private static readonly string appUrl = "http://esepte.com";
-        //private static readonly string apiUrl = "http://62.109.23.139/Ero";
+        //private static readonly string apiUrl = "http://api.esepte.com/Ero";
 
         private static readonly string appUrl = "https://localhost:44332";
         private static readonly string apiUrl = "https://localhost:44370/Ero";

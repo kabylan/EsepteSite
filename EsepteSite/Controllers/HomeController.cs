@@ -26,6 +26,11 @@ namespace EsepteSite.Controllers
             return View();
         }
 
+        public IActionResult Dev()
+        {
+            return View();
+        }
+
         public IActionResult CreateMessage(bool check1, bool check2, bool check3, bool check4, string ClientWants, string ClientContacs)
         {
             string types = "";
